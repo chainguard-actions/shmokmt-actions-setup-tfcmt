@@ -1,0 +1,30 @@
+name: Test setup-tfcmt specific version
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          version: "v4.6.0"
+      - name: Assert tfcmt is installed and executable
+        run: |
+          echo "Checking tfcmt is on PATH..."
+          if ! command -v tfcmt &>/dev/null; then
+            echo "FAIL: tfcmt not found on PATH"
+            exit 1
+          fi
+          echo "PASS: tfcmt found at $(command -v tfcmt)"
+      - name: Assert tfcmt version matches expected
+        run: |
+          VERSION_OUTPUT=$(tfcmt --version 2>&1)
+          echo "tfcmt --version output: $VERSION_OUTPUT"
+          if echo "$VERSION_OUTPUT" | grep -q "4.6.0"; then
+            echo "PASS: version 4.6.0 confirmed"
+          else
+            echo "FAIL: expected version 4.6.0 in output, got: $VERSION_OUTPUT"
+            exit 1
+          fi
