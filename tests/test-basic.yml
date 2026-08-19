@@ -1,4 +1,4 @@
-name: Test setup-tfcmt basic (latest version)
+name: Test basic usage - install latest tfcmt
 on:
   workflow_dispatch:
 jobs:
@@ -8,21 +8,19 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - id: action
         uses: .
-        # No version input — defaults to "latest"
-      - name: Assert tfcmt is installed and executable
+      - name: Assert tfcmt is installed
         run: |
-          echo "Checking tfcmt is on PATH..."
-          if ! command -v tfcmt &>/dev/null; then
-            echo "FAIL: tfcmt not found on PATH"
+          if ! command -v tfcmt > /dev/null 2>&1; then
+            echo "FAIL: tfcmt binary not found in PATH"
             exit 1
           fi
-          echo "PASS: tfcmt found at $(command -v tfcmt)"
-      - name: Assert tfcmt version output is non-empty
+          echo "PASS: tfcmt is installed"
+      - name: Assert tfcmt version output
         run: |
           VERSION_OUTPUT=$(tfcmt --version 2>&1)
-          echo "tfcmt --version output: $VERSION_OUTPUT"
+          echo "tfcmt version output: $VERSION_OUTPUT"
           if [ -z "$VERSION_OUTPUT" ]; then
             echo "FAIL: tfcmt --version produced no output"
             exit 1
           fi
-          echo "PASS"
+          echo "PASS: tfcmt --version returned output"

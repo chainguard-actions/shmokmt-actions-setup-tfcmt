@@ -1,4 +1,4 @@
-name: Test setup-tfcmt specific version
+name: Test specific version installation
 on:
   workflow_dispatch:
 jobs:
@@ -9,21 +9,20 @@ jobs:
       - id: action
         uses: .
         with:
-          version: "v4.6.0"
-      - name: Assert tfcmt is installed and executable
+          version: v4.6.0
+      - name: Assert tfcmt is installed
         run: |
-          echo "Checking tfcmt is on PATH..."
-          if ! command -v tfcmt &>/dev/null; then
-            echo "FAIL: tfcmt not found on PATH"
+          if ! command -v tfcmt > /dev/null 2>&1; then
+            echo "FAIL: tfcmt binary not found in PATH"
             exit 1
           fi
-          echo "PASS: tfcmt found at $(command -v tfcmt)"
+          echo "PASS: tfcmt is installed"
       - name: Assert tfcmt version matches expected
         run: |
           VERSION_OUTPUT=$(tfcmt --version 2>&1)
-          echo "tfcmt --version output: $VERSION_OUTPUT"
+          echo "tfcmt version output: $VERSION_OUTPUT"
           if echo "$VERSION_OUTPUT" | grep -q "4.6.0"; then
-            echo "PASS: version 4.6.0 confirmed"
+            echo "PASS: tfcmt version matches expected v4.6.0"
           else
             echo "FAIL: expected version 4.6.0 in output, got: $VERSION_OUTPUT"
             exit 1
