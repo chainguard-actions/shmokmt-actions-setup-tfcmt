@@ -6,9 +6,9 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 
 ## Versions
 
-| Version | Tag | Upstream commit |
-|---------|-----|-----------------|
-| v2.1.1 | [`v2.1.1`](https://github.com/chainguard-actions/shmokmt-actions-setup-tfcmt/tree/v2.1.1) | [`04d5aa6`](https://github.com/shmokmt/actions-setup-tfcmt/commit/04d5aa6dc61eaa69a4d00257224c9b97f4857819) |
+| Version | Tag | Upstream commit | Hardening report |
+|---------|-----|-----------------|------------------|
+| v2.1.1 | [`v2.1.1`](https://github.com/chainguard-actions/shmokmt-actions-setup-tfcmt/tree/v2.1.1) | [`04d5aa6`](https://github.com/shmokmt/actions-setup-tfcmt/commit/04d5aa6dc61eaa69a4d00257224c9b97f4857819) | [`HARDENING.md`](https://github.com/chainguard-actions/shmokmt-actions-setup-tfcmt/blob/v2.1.1/HARDENING.md) |
 
 ## Privacy
 
